@@ -1,0 +1,32 @@
+<!--like button -->
+
+<form  action = "{% url 'like_post% post.id}" method = "POST">
+    {% csrf_token %}
+    <button type= "submit">
+    { % if user in post.likes.all %}
+        Unlike ({{{post.total_likes}}})
+        {% else %}
+        Like ({{{post.total_likes}}})
+        {% endif%}
+        </button>
+
+
+</form>
+
+<!-- save button -->
+<form action = "{ % url 'save_post' post.id}" method = "POST">
+    {% crsf_token %}
+    <button type = "submit"><
+    { % if user in saved_by.all %}
+        Unsave({{post.total_saves}})
+    {% else %}
+    Save({{post.total_saves}})
+    {% endif %}
+    </button>
+</form>
+
+
+<! -- display image if available -->
+{ % if post.image %}
+<img src = "{{post.image.url}}" alt = "Post Image" style="max-width: 100%; height: auto;">
+{% endif%}
