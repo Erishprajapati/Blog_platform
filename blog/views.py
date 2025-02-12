@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Post #import post because we only work in post now
+from .models import * 
+from .serializers import *
+from rest_framework import viewsets, permissions
 
 # Create your views here.
 @login_required
@@ -21,3 +23,11 @@ def save_post(request,post_id):
     else:
         post.saved_by.add(request.user)
         return redirect('post_detail', slug = post.slug)
+    
+
+    #creating API views
+class CategoryViewSet(viewsets.ModelViewset):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
