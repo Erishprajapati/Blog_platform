@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-const PostItem = () => {
+const PostList = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() =>{
         fetch('') //should be replaced with backend API

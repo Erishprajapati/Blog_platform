@@ -13,7 +13,7 @@ def like_post(request,post_id): # a function for liking the post
         post.likes.remove(request.user) #if user double clicks on post the post will be unliked
     else:
         post.likes.add(request.user)
-        return redirect('post-detail',slug = post.slug) #redirects to the post detail page
+        return redirect('post',slug = post.slug) #redirects to the post detail page
 
 @login_required
 def save_post(request,post_id):
@@ -22,12 +22,22 @@ def save_post(request,post_id):
         post.saved_by.remove(request.user)
     else:
         post.saved_by.add(request.user)
-        return redirect('post_detail', slug = post.slug)
+        return redirect('post', slug = post.slug)
     
 
     #creating API views
-class CategoryViewSet(viewsets.ModelViewset):
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
