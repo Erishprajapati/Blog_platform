@@ -1,16 +1,11 @@
-from django.urls import path,include
-from . import views
-from .views import *
-from rest_framework.routers import DefaultRouter
-
-router = DefaultRouter()
-router.register(r'categories',CategoryViewSet)
-router.register(r'posts', PostViewSet)
-router.register(r'comments', CommentViewSet)
+from django.urls import path
+from .views import home, login_view, logout_view, register, profile, post_detail
 
 urlpatterns = [
-    path('post/<int:post_id>/like/', views.like_post, name='like_post'),
-    path('post/<int:post_id>/save/', views.save_post, name='save_post'),
-    path('post/<slug:slug>/', views.post_detail, name='post_detail'),  # Your existing post detail view
-    
+    path('', home, name='home'),
+    path('login/', login_view, name='login'),
+    # path('logout/', logout_view, name='logout'),
+    path('register/', register, name='register'),
+    # path('profile/<int:id>/', profile, name='profile'),
+    # path('post/<int:id>/', post_detail, name='post-detail'),
 ]
